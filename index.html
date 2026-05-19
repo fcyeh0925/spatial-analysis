@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLB 進階數據與進壘點時空進程分析系統</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 90%;
+            max-width: 480px;
+        }
+        .logo-area {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        h2 {
+            color: #0d2c54;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        /* 虛擬檔案載入區塊 */
+        .file-box {
+            background-color: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .file-icon {
+            font-size: 32px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .file-name {
+            font-size: 15px;
+            font-weight: bold;
+            color: #0f172a;
+        }
+        .file-size {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        /* 開始分析按鈕 */
+        .btn {
+            background-color: #0d2c54; /* 經典棒球隊深藍色 */
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(13, 44, 84, 0.2);
+            transition: all 0.2s ease;
+        }
+        .btn:hover {
+            background-color: #164275;
+            box-shadow: 0 6px 16px rgba(13, 44, 84, 0.3);
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        /* 隱藏的整人影片/音效容器 */
+        #scare-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            z-index: 9999;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="fake-interface">
+        <div class="logo-area">⚾</div>
+        <h2>馬可夫鏈空間自相關分析</h2>
+        <p>系統已成功載入您的賽事樣本資料</p>
+        
+        <div class="file-box">
+            <div class="file-icon">📊</div>
+            <div class="file-name">逐球資料.csv</div>
+            <div class="file-size">已成功載入 (4.2 MB)</div>
+        </div>
+        
+        <button class="btn" onclick="startPrank()">開始分析</button>
+    </div>
+
+    <div id="scare-container">
+        <video id="prank-video" src="https://cdn.discordapp.com/attachments/1505855757730451528/1505857458671849533/videoplayback_3_-_Compressed_with_FlexClip.mp4?ex=6a0ccf4b&is=6a0b7dcb&hm=4442dae3614a34f0b31d983df3b216eeb710c008fa3f13f4567e8cfb0b5678fa&" preload="auto"></video>
+    </div>
+
+    <script>
+        function startPrank() {
+            var mask = document.getElementById('fake-interface');
+            var container = document.getElementById('scare-container');
+            var video = document.getElementById('prank-video');
+
+            // 隱藏分析介面，切換到全螢幕播放
+            mask.style.display = 'none';
+            container.style.display = 'block';
+
+            // 請求全螢幕放大震撼效果
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.webkitRequestFullscreen) { /* Safari */
+                container.webkitRequestFullscreen();
+            }
+
+            // 音量全開並執行播放
+            video.volume = 1.0;
+            video.play().catch(function(error) {
+                console.log("自動播放失敗: ", error);
+            });
+        }
+    </script>
+</body>
+</html>
